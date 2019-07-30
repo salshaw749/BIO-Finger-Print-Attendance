@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset="utf-8">
+	<title>Attendence</title>
+</head>
+<body>
+<h1>Attendence Record</h1> 
+<div class="Attendence">
+	{% for recored in recoreds %} 
+	<div class="Attendence">
+		<h2><a href="#">{{recored.userid}} </a></h2>
+		<p>{{recored.date}}</p>
+		<p>{{recored.checktime}}</p>
+	</div>
+	{% endfor %}
+</div>
+</body>
+</html>
