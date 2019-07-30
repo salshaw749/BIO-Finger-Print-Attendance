@@ -1,8 +1,9 @@
-from django.shortcuts import render, HttpResponse,redirect
+from django.shortcuts import render, HttpResponse,redirect,get_object_or_404, get_list_or_404
 from django.contrib.auth.forms import UserCreationForm 
-from .models import Attendence
+from .models import Checkinout1, Userinfo
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+import datetime
 
 
 
@@ -22,47 +23,29 @@ def signup(request):
 		else: 
 			form= UserCreationForm()
 
-	return render(request, 'registration/signUp.html',{
-		'form':form
-		})
+			return render(request, 'registration/signUp.html',{'form':form})
 
-
-# def login_view(request):
-	
-# 	 return render(request, "fingerPrint/login.html")
-
-# 	if request.method=="POST":
-# 		username = request.POST.get('username')
-# 		password = request.POST.get('password')
-# 		user = authenticate(username=username, password=password)
-# 		if user is not None:
-# 			if user.is_active:
-# 				login(request, user)
-# 				return redirect('date')
-	  
-# 			# Redirect to a success page.
-# 		else:
-# 			# Return a 'disabled account' error message
-	
-# 				return (request,'invalid login') 
-				
-
-	
-
-
+def is_valed_queryParam(param):
+	return param !='' and param is not None
 
 def date(request):
-	
-	return render(request, "fingerPrint/date.html")
+
+	attendance = Checkinout1.objects.filter( pk=request.user.first_name)
+	S=request.GET.get('startDate')
+	E=request.GET.get('endDate')
+
+	# sdate=datetime.datetime.strptime(S,"%Y-%m-%d").date()
+	# edate=datetime.datetime.strptime(E,"%Y-%m-%d").date()
+
+	if  (S):
+		attendance = attendance.filter(date__gte=datetime.datetime.strptime(S,"%m/%d/%Y").strftime("%Y%m%d"))
+
+	if  (E):
+		attendance = attendance.filter(date__lte=datetime.datetime.strptime(E,"%m/%d/%Y").strftime("%Y%m%d"))
+
+	# attendance= attendance.filter(date__gte='startDate' )
+	# attendance= attendance.filter(date__lte='endDate' )
+	return render(request , "fingerPrint/date.html" ,{'attendance' : attendance})
 
 
 
-def Attendence_recoreds(request): 
-	records = Attendence.objects.all().order_by('date')
-	return render(request,"fingerPrint/records.html",{'recoreds':records})
-
-
-
-def Attendence_details (request, username):
-	AttRecord=Attendence.objects.get(username=username)
-	return render(request,"fingerPrint/Attrecord.html", {"attendence recored ":AttRecord})

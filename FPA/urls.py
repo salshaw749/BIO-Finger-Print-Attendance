@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path ,include 
-from fingerPrint.views import home, date,Attendence_recoreds,signup
+from fingerPrint.views import home, date,signup
 
 urlpatterns = [
 
@@ -24,6 +24,5 @@ urlpatterns = [
     path('signup/', signup , name="signup"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('date/', date, name='date'),
-    path('attendence/', Attendence_recoreds),
   
 ]

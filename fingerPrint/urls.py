@@ -11,7 +11,7 @@ urlpatterns = [
 
 	url(r'^$' , views.login_view),
 	url(r'^$' , views.date),
-	url(r'^$' , views.Attendence_recoreds),
+
 
 	
 ]

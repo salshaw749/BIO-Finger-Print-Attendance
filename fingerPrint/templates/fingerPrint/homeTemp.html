@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
 {% block content %} 
-<h2> welcome  black ,{% if user.is_authenticated %}{{user.username}}{% else %}!{% endif %}</h2>
 
+<h2> welcome  back {% if user.is_authenticated %},{{user.username}}{% else %}!{% endif %}</h2>
+<br>
+<br>
+<br>
+<br>
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+        	<h2>what is the perpuse? </h2>
+        	<br>
+        	<br>
+
+
+	this web page will provide you with your attendence details during specific date durations if your registered in the system 
+
+	<br>
+	<br>
+ </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
